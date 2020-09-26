@@ -63,26 +63,28 @@ const setupKeybinds = v => {
     }
 }
 
+let prevVid;
+
 const uiReady = () => {
     let v_list = document.getElementsByTagName('video');
-    if (v_list.length == 0) {//no video/audio found, listen for DOM changes
-        // Detect DOM changes
-        const config = {
-            attributes: true,
-            childList: true,
-            subtree: true
-        };
-        const observer = new MutationObserver((mutations, me) => {
-            let v_list = document.getElementsByTagName('video');
-            if(v_list.length > 0){//found video
-                setupKeybinds(v_list[0]);
-                me.disconnect();
-            }
-        });
-        observer.observe(document.body, config);
-    }else{//found video, set up
+    if (v_list.length > 0) {
         setupKeybinds(v_list[0]);
     }
+    //listen for DOM changes
+    const config = {
+        attributes: true,
+        childList: true,
+        subtree: true
+    };
+    const observer = new MutationObserver((mutations, me) => {
+        let v_list = document.getElementsByTagName('video');
+        if (v_list.length > 0 && prevVid !== v_list[0]) {//have video and video changed
+            prevVid = v_list[0];
+            setupKeybinds(v_list[0]);//set keybinds to new video
+            // me.disconnect();//keep listening for video changes
+        }
+    });
+    observer.observe(document.body, config);
 }
 
 if (document.readyState === "complete" || document.readyState === "interactive") {
