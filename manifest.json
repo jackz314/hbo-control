@@ -1,0 +1,17 @@
+{
+  "name": "HBOMax Keyboard Control",
+  "version": "1.0",
+  "description": "Control HBOMax video with the keyboard, like YouTube",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["https://play.hbomax.com/*"],
+      "run_at": "document_idle",
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "48": "favicon.ico",
+    "128": "icon.png"
+  }
+}
