@@ -1,6 +1,10 @@
+import setupKeybinds from './setup-keybinds.js';
+
+let prevVid;
+
 const uiReady = () => {
     let v_list = document.querySelector('video');
-    if (v_list.length > 0) {
+    if (v_list?.length > 0) {
         setupKeybinds(v_list[0]);
     }
     //listen for DOM changes
@@ -20,4 +24,4 @@ const uiReady = () => {
     observer.observe(document.body, config);
 }
 
-module.exports = uiReady;
+export default uiReady;

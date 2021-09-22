@@ -1,3 +1,6 @@
+import config from './config.js';
+import isTextBox from './is-text-box.js';
+
 const setupKeybinds = (v) => {
     document.body.onkeydown = (e) => {
         if (e.isComposing || e.keyCode === 229) {//ignore when inside IME
@@ -13,19 +16,19 @@ const setupKeybinds = (v) => {
         switch(key.toLowerCase()) {
           case 'arrowleft':
             command = 'seek';
-            amount = isModified ? -5 : -10;
+            amount = isModified ? -config.smallSeek : -config.bigSeek;
             break;
           case 'arrowright':
             command = 'seek';
-            amount = isModified ? 5 : 10;
+            amount = isModified ? config.smallSeek : config.bigSeek;
             break;
           case 'arrowup':
             command = 'changeVol';
-            amount = isModified ? 0.1 : 0.05;
+            amount = isModified ? config.bigVolume : config.smallVolume;
             break;
           case 'arrowdown':
             command = 'changeVol';
-            amount = isModified ? -0.1 : -0.05;
+            amount = isModified ? -config.bigVolume : -config.smallVolume;
             break;
           case 'f':
             v.requestFullScreen({
@@ -42,4 +45,4 @@ const setupKeybinds = (v) => {
     }
 };
 
-modules.export = setupKeybinds;
+export default setupKeybinds;

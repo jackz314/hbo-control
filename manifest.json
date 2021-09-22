@@ -1,17 +1,28 @@
 {
-  "name": "HBOMax Keyboard Control",
-  "version": "1.0",
-  "description": "Control HBOMax video playback with the keyboard, like YouTube",
+  "name": "HBOMax Keyboard Shortcuts",
+  "version": "2.0",
+  "description": "Use keyboard shortcuts on HBO Max",
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": ["https://play.hbomax.com/*"],
+      "matches": ["https://play.hbomax.com/*","http://localhost:5000/*"],
       "run_at": "document_idle",
-      "js": ["index.js"]
+      "js": ["src/js/content.js"]
     }
   ],
+  "background": {
+      "page": "src/html/index.html"
+  },
   "icons": {
     "48": "icon-48.png",
     "128": "icon-128.png"
-  }
+  },
+  "web_accessible_resources": [
+    "src/js/content.js",
+    "src/js/hbomax.js",
+    "src/js/config.js",
+    "src/js/is-text-box.js",
+    "src/js/ui-ready.js",
+    "src/js/setup-keybinds.js"
+  ]
 }
