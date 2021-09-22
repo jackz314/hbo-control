@@ -1,7 +1,7 @@
 import config from './config.js';
 import isTextBox from './is-text-box.js';
 
-const setupKeybinds = (v) => {
+function setupKeybinds(v){
     document.body.onkeydown = (e) => {
         if (e.isComposing || e.keyCode === 229) {//ignore when inside IME
             return;

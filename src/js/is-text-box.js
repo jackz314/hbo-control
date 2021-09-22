@@ -1,7 +1,6 @@
-const isTextBox = (element) => {
+function isTextBox(element) {
     var tagName = element.tagName.toLowerCase();
-    if (tagName === 'input' || tagName === 'textarea') return true;
-    else return false;
+    return (tagName === 'input' || tagName === 'textarea');
 }
 
 export default isTextBox;

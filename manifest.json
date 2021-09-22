@@ -1,21 +1,29 @@
 {
-  "name": "HBOMax Keyboard Shortcuts",
-  "version": "2.0",
+  "name": "Keyboard Shortcuts for HBO Max",
+  "version": "1.0",
   "description": "Use keyboard shortcuts on HBO Max",
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": ["https://play.hbomax.com/*","http://localhost:5000/*"],
+      "matches": [
+        "https://play.hbomax.com/*",
+        "http://localhost:5000/*"
+      ],
       "run_at": "document_idle",
-      "js": ["src/js/content.js"]
+      "js": [
+        "src/js/content.js"
+      ]
     }
   ],
   "background": {
       "page": "src/html/index.html"
   },
   "icons": {
-    "48": "icon-48.png",
-    "128": "icon-128.png"
+    "24": "src/icon-24.png",
+    "48": "src/icon-48.png",
+    "64": "src/icon-64.png",
+    "128": "src/icon-128.png",
+    "640": "src/icon-640.png"
   },
   "web_accessible_resources": [
     "src/js/content.js",

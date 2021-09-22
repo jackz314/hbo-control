@@ -2,7 +2,7 @@ import setupKeybinds from './setup-keybinds.js';
 
 let prevVid;
 
-const uiReady = () => {
+function uiReady() {
     let v_list = document.querySelector('video');
     if (v_list?.length > 0) {
         setupKeybinds(v_list[0]);
