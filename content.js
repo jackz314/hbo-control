@@ -37,7 +37,7 @@ const setupKeybinds = v => {
             //     e.preventDefault();//prevent scroll or element select
             //     if(v.paused) v.play();
             //     else v.pause();
-            // 
+            //
             // }
             //seeking
             if(key === 'ArrowRight'){
@@ -55,10 +55,12 @@ const setupKeybinds = v => {
             // }else if(key.toLowerCase() === "c"){
             //     if(ccBtn) ccBtn.click();
             // }
-            // else if(key.toLowerCase() === "f"){
-            //     e.preventDefault();
-            //     if(fullScreenBtn) fullScreenBtn.click();
-            // }
+            else if(key.toLowerCase() === "f"){
+                e.preventDefault();
+                v.requestFullScreen({
+                  navigationUI: "hide"
+                });
+            }
         }
     }
 }
