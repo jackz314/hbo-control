@@ -7,7 +7,7 @@
     {
       "matches": ["https://play.hbomax.com/*"],
       "run_at": "document_idle",
-      "js": ["content.js"]
+      "js": ["index.js"]
     }
   ],
   "icons": {
