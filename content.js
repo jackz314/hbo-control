@@ -2,11 +2,6 @@ const isTextBox = element => {
     var tagName = element.tagName.toLowerCase();
     if (tagName === 'input' || tagName === 'textarea') return true;
     else return false;
-    // if (tagName !== 'input') return false;
-    // var type = element.getAttribute('type').toLowerCase(),
-    //     // if any of these input types is not supported by a browser, it will behave as input type text.
-    //     inputTypes = ['text', 'password', 'number', 'email', 'tel', 'url', 'search', 'date', 'datetime', 'datetime-local', 'time', 'month', 'week']
-    // return inputTypes.indexOf(type) >= 0;
 }
 
 const setupKeybinds = v => {
@@ -15,52 +10,40 @@ const setupKeybinds = v => {
             return;
         }
         if (isTextBox(e.target)) return;
-        // console.log(e);
-        //space play/pause
         let key = e.key;
-        const seek = time => {
-            v.currentTime += time;
+        let command, amount;
+        const seek = (time) => v.currentTime += time;
+        const changeVol = (vol) => v.volume = Math.min(Math.max(v.volume + vol, 0), 1);
+        const isModified = e.ctrlKey || e.altKey;
+
+        switch(key.toLowerCase()) {
+          case 'arrowleft':
+            command = 'seek';
+            amount = isModified ? -5 : -10;
+            break;
+          case 'arrowright':
+            command = 'seek';
+            amount = isModified ? 5 : 10;
+            break;
+          case 'arrowup':
+            command = 'changeVol';
+            amount = isModified ? 0.1 : 0.05;
+            break;
+          case 'arrowdown':
+            command = 'changeVol';
+            amount = isModified ? -0.1 : -0.05;
+            break;
+          case 'f':
+            v.requestFullScreen({
+              navigationUI: "hide"
+            });
+            break;
+          case 'm':
+            v.muted = !v.muted;
+            break;
         }
-        const changeVol = vol => {
-            v.volume = Math.min(Math.max(v.volume + vol, 0), 1);//limit to range between 0 and 1
-        }
-        if(e.shiftKey || e.altKey) return;
-        if(e.ctrlKey){ //meta key on macOS?
-            if(key === 'ArrowRight'){
-                seek(5);
-            }else if(key === 'ArrowLeft'){
-                seek(-5);
-            }
-        }else{
-            // e.stopPropagation();
-            // if (key === ' '){
-            //     e.preventDefault();//prevent scroll or element select
-            //     if(v.paused) v.play();
-            //     else v.pause();
-            //
-            // }
-            //seeking
-            if(key === 'ArrowRight'){
-                seek(10);
-            }else if(key === 'ArrowLeft'){
-                seek(-10);
-            //change volume by 5%
-            }else if(key === 'ArrowUp'){
-                changeVol(0.05);
-            }else if(key === 'ArrowDown'){
-                changeVol(-0.05);
-            }else if(key.toLowerCase() === "m"){
-                v.muted = !v.muted;
-            }
-            // }else if(key.toLowerCase() === "c"){
-            //     if(ccBtn) ccBtn.click();
-            // }
-            else if(key.toLowerCase() === "f"){
-                e.preventDefault();
-                v.requestFullScreen({
-                  navigationUI: "hide"
-                });
-            }
+        if (command) {
+          eval(command).call(this, amount);
         }
     }
 }
