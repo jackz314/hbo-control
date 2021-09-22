@@ -25,7 +25,7 @@ const setupKeybinds = v => {
             v.volume = Math.min(Math.max(v.volume + vol, 0), 1);//limit to range between 0 and 1
         }
         if(e.shiftKey || e.altKey) return;
-        if(e.ctrlKey || e.metaKey){ //meta key on macOS?
+        if(e.ctrlKey){ //meta key on macOS?
             if(key === 'ArrowRight'){
                 seek(5);
             }else if(key === 'ArrowLeft'){
